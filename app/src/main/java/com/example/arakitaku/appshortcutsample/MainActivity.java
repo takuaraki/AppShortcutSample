@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -57,6 +58,29 @@ public class MainActivity extends AppCompatActivity {
                     .build();
 
             shortcutManager.setDynamicShortcuts(Arrays.asList(ara_tack, hashido, n_morioka));
+
+            // shortcutManager.getMaxShortcutCountPerActivity() equals 5
+            Log.d("onCreate", "max: " + shortcutManager.getMaxShortcutCountPerActivity());
+            boolean exceedMaxShortCut = false;
+            if (exceedMaxShortCut) {
+                ShortcutInfo ara_tack2 = new ShortcutInfo.Builder(this, "ara_tack2")
+                        .setShortLabel("ara_tack2")
+                        .setLongLabel("mail to ara_tack2")
+                        .setIcon(Icon.createWithResource(this, R.mipmap.ic_create_email_a))
+                        .setIntent(EmailActivity.createIntent(this, "ara_tack2").setAction(Intent.ACTION_VIEW))
+                        .build();
+
+                ShortcutInfo ara_tack3 = new ShortcutInfo.Builder(this, "ara_tack3")
+                        .setShortLabel("ara_tack3")
+                        .setLongLabel("mail to ara_tack3")
+                        .setIcon(Icon.createWithResource(this, R.mipmap.ic_create_email_a))
+                        .setIntent(EmailActivity.createIntent(this, "ara_tack3").setAction(Intent.ACTION_VIEW))
+                        .build();
+
+                // IllegalArgumentException is thrown because getMaxShortcutCountPerActivity() is exceeded.
+                // 6 shortcuts: 1 static shortcut and 5 dynamic shortcuts.
+                shortcutManager.setDynamicShortcuts(Arrays.asList(ara_tack, hashido, n_morioka, ara_tack2, ara_tack3));
+            }
         }
 
     }
