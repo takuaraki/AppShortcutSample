@@ -1,5 +1,10 @@
 package com.example.arakitaku.appshortcutsample;
 
+import android.content.Intent;
+import android.content.pm.ShortcutInfo;
+import android.content.pm.ShortcutManager;
+import android.graphics.drawable.Icon;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +12,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+
+import java.util.Collections;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,6 +31,18 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(EmailActivity.createIntent(MainActivity.this));
             }
         });
+
+        if (Build.VERSION.SDK_INT >= 25) {
+            ShortcutManager shortcutManager = getSystemService(ShortcutManager.class);
+            ShortcutInfo shortcutInfo = new ShortcutInfo.Builder(this, "ara_tack")
+                    .setShortLabel("ara_tack")
+                    .setLongLabel("mail to ara_tack")
+                    .setIcon(Icon.createWithResource(this, R.mipmap.ic_create_email_a))
+                    .setIntent(EmailActivity.createIntent(this, "ara_tack").setAction(Intent.ACTION_VIEW))
+                    .build();
+            shortcutManager.setDynamicShortcuts(Collections.singletonList(shortcutInfo));
+        }
+
     }
 
     @Override
