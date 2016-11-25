@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import java.util.Arrays;
 import java.util.Collections;
 
 public class MainActivity extends AppCompatActivity {
@@ -34,13 +35,28 @@ public class MainActivity extends AppCompatActivity {
 
         if (Build.VERSION.SDK_INT >= 25) {
             ShortcutManager shortcutManager = getSystemService(ShortcutManager.class);
-            ShortcutInfo shortcutInfo = new ShortcutInfo.Builder(this, "ara_tack")
+            ShortcutInfo ara_tack = new ShortcutInfo.Builder(this, "ara_tack")
                     .setShortLabel("ara_tack")
                     .setLongLabel("mail to ara_tack")
                     .setIcon(Icon.createWithResource(this, R.mipmap.ic_create_email_a))
                     .setIntent(EmailActivity.createIntent(this, "ara_tack").setAction(Intent.ACTION_VIEW))
                     .build();
-            shortcutManager.setDynamicShortcuts(Collections.singletonList(shortcutInfo));
+
+            ShortcutInfo hashido = new ShortcutInfo.Builder(this, "hashido")
+                    .setShortLabel("hashido")
+                    .setLongLabel("mail to hashido")
+                    .setIcon(Icon.createWithResource(this, R.mipmap.ic_create_email_h))
+                    .setIntent(EmailActivity.createIntent(this, "hashido").setAction(Intent.ACTION_VIEW))
+                    .build();
+
+            ShortcutInfo n_morioka = new ShortcutInfo.Builder(this, "n_morioka")
+                    .setShortLabel("n_morioka")
+                    .setLongLabel("mail to n_morioka")
+                    .setIcon(Icon.createWithResource(this, R.mipmap.ic_create_email_n))
+                    .setIntent(EmailActivity.createIntent(this, "n_morioka").setAction(Intent.ACTION_VIEW))
+                    .build();
+
+            shortcutManager.setDynamicShortcuts(Arrays.asList(ara_tack, hashido, n_morioka));
         }
 
     }
