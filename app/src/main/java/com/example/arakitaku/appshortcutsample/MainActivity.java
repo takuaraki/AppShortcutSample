@@ -65,7 +65,13 @@ public class MainActivity extends AppCompatActivity {
                     .setShortLabel("n_morioka")
                     .setLongLabel("mail to n_morioka")
                     .setIcon(Icon.createWithResource(this, R.mipmap.ic_create_email_n))
-                    .setIntent(EmailActivity.createIntent(this, "n_morioka").setAction(Intent.ACTION_VIEW))
+                    // Multiple Intent can be set
+                    .setIntents(new Intent[]{
+                            MainActivity.createIntent(this)
+                                    .setAction(Intent.ACTION_VIEW),
+                            EmailActivity.createIntent(this, "n_morioka")
+                                    .setAction(Intent.ACTION_VIEW)
+                    })
                     .build();
 
             shortcutManager.setDynamicShortcuts(Arrays.asList(ara_tack, hashido, n_morioka));
