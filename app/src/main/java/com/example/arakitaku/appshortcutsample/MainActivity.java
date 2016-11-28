@@ -17,6 +17,7 @@ import android.view.View;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -97,6 +98,30 @@ public class MainActivity extends AppCompatActivity {
                 // IllegalArgumentException is thrown because getMaxShortcutCountPerActivity() is exceeded.
                 // 6 shortcuts: 1 static shortcut and 5 dynamic shortcuts.
                 shortcutManager.setDynamicShortcuts(Arrays.asList(ara_tack, hashido, n_morioka, ara_tack2, ara_tack3));
+            }
+
+            // introduce ShortcutManager's methods.
+            boolean shortcutManagerMethods = false;
+            if (shortcutManagerMethods) {
+                List<ShortcutInfo> shortcutInfos = shortcutManager.getDynamicShortcuts();
+                List<String> shortcutIds = Arrays.asList("ara_tack", "hashido", "n_morioka");
+                // add
+                shortcutManager.addDynamicShortcuts(shortcutInfos);
+
+                // set
+                shortcutManager.setDynamicShortcuts(shortcutInfos);
+
+                // update
+                shortcutManager.updateShortcuts(shortcutInfos);
+
+                // remove specific
+                shortcutManager.removeDynamicShortcuts(shortcutIds);
+
+                // remove all
+                shortcutManager.removeAllDynamicShortcuts();
+
+                // disable
+                shortcutManager.disableShortcuts(shortcutIds);
             }
         }
 
